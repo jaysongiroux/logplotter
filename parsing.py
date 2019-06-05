@@ -1,11 +1,101 @@
 """
-author: Jason Giroux
+filters:
+    - INFO
+    - WARNING
+    - bed info
 
-INFO:
+todo:
+1. parse log for bed levling array =
+
+
+
 
 """
-from colorama import Fore
 
-log_file = input(Fore.RED + "[PROMPT] Log File: ")
+
+from mpl_toolkits import mplot3d
+import numpy as np
+import matplotlib.pyplot as plt
+
+from mpl_toolkits.mplot3d import axes3d
+
+bed_mesh = [[11.0, 60.0, 0.1604], [33.0, 60.0, 0.1591], [55.0, 60.0, 0.1538], [77.0, 60.0, 0.1708], [99.0, 60.0, 0.1818], [121.0, 60.0, 0.1846], [143.0, 60.0, 0.1923], [165.0, 60.0, 0.1913], [187.0, 60.0, 0.1941], [209.0, 60.0, 0.2007], [231.0, 60.0, 0.21], [253.0, 60.0, 0.2183], [275.0, 60.0, 0.2109], [297.0, 60.0, 0.2041], [319.0, 60.0, 0.2095], [319.0, 95.0, 0.2069], [297.0, 95.0, 0.2086], [275.0, 95.0, 0.2192], [253.0, 95.0, 0.2321], [231.0, 95.0, 0.2293], [209.0, 95.0, 0.2208], [187.0, 95.0, 0.2176], [165.0, 95.0, 0.2137], [143.0, 95.0, 0.2146], [121.0, 95.0, 0.2053], [99.0, 95.0, 0.1996], [77.0, 95.0, 0.1906], [55.0, 95.0, 0.1743], [33.0, 95.0, 0.17], [11.0, 95.0, 0.1726], [11.0, 130.0, 0.1891], [33.0, 130.0, 0.1863], [55.0, 130.0, 0.1898], [77.0, 130.0, 0.2005], [99.0, 130.0, 0.2081], [121.0, 130.0, 0.2151], [143.0, 130.0, 0.2224], [165.0, 130.0, 0.2151], [187.0, 130.0, 0.2161], [209.0, 130.0, 0.215], [231.0, 130.0, 0.2246], [253.0, 130.0, 0.2288], [275.0, 130.0, 0.2221], [297.0, 130.0, 0.2096], [319.0, 130.0, 0.2024], [319.0, 165.0, 0.1972], [297.0, 165.0, 0.2102], [275.0, 165.0, 0.2239], [253.0, 165.0, 0.2381], [231.0, 165.0, 0.2335], [209.0, 165.0, 0.2293], [187.0, 165.0, 0.2328], [165.0, 165.0, 0.2324], [143.0, 165.0, 0.2387], [121.0, 165.0, 0.2334], [99.0, 165.0, 0.227], [77.0, 165.0, 0.2201], [55.0, 165.0, 0.2101], [33.0, 165.0, 0.2044], [11.0, 165.0, 0.2012], [11.0, 200.0, 0.2008], [33.0, 200.0, 0.1952], [55.0, 200.0, 0.1894], [77.0, 200.0, 0.1912], [99.0, 200.0, 0.1958], [121.0, 200.0, 0.2009], [143.0, 200.0, 0.2027], [165.0, 200.0, 0.1937], [187.0, 200.0, 0.1945], [209.0, 200.0, 0.1886], [231.0, 200.0, 0.1989], [253.0, 200.0, 0.2], [275.0, 200.0, 0.1868], [297.0, 200.0, 0.1742], [319.0, 200.0, 0.1624], [319.0, 235.0, 0.1535], [297.0, 235.0, 0.1644], [275.0, 235.0, 0.1739], [253.0, 235.0, 0.1923], [231.0, 235.0, 0.2007], [209.0, 235.0, 0.1972], [187.0, 235.0, 0.2032], [165.0, 235.0, 0.2], [143.0, 235.0, 0.2127], [121.0, 235.0, 0.2092], [99.0, 235.0, 0.2084], [77.0, 235.0, 0.2053], [55.0, 235.0, 0.2019], [33.0, 235.0, 0.2036], [11.0, 235.0, 0.2095], [11.0, 270.0, 0.2439], [33.0, 270.0, 0.2284], [55.0, 270.0, 0.2231], [77.0, 270.0, 0.2229], [99.0, 270.0, 0.2214], [121.0, 270.0, 0.2222], [143.0, 270.0, 0.221], [165.0, 270.0, 0.2033], [187.0, 270.0, 0.2019], [209.0, 270.0, 0.1888], [231.0, 270.0, 0.1874], [253.0, 270.0, 0.1818], [275.0, 270.0, 0.1744], [297.0, 270.0, 0.1661], [319.0, 270.0, 0.1504]]
+
+
+
+def x_data(data):
+    tempX =  [i[0] for i in data]
+    return tempX
+
+
+def y_data(data):
+    tempY = [i[1] for i in data]
+    return  tempY
+
+
+def z_data(data):
+    tempz = [i[2] for i in data]
+    return tempz
+
+def logfile(filename):
+    with open(filename, 'r') as f:
+        x = f.readlines()
+    return x
+
+def displayContents(contents):
+    for i in range(len(contents)):
+        print(contents[i])
+
+def warnings(contents):
+    print("------------ WARNINGS ------------")
+    for i in range(len(contents)):
+        if "WARNING"in contents[i]:
+            print(contents[i])
+        elif "warnings" in contents[i]:
+            print(contents[i])
+        else:
+            continue
+def bed(contents):
+    print("------------ BED ------------")
+    for i in range(len(contents)):
+        if "bed" in contents[i]:
+            print(contents[i])
+        elif "laser" in contents[i]:
+            print(contents[i])
+        else:
+            continue
+
+
+# contents=logfile("logs/test1.log")
+# warnings(contents)
+# print("---------")
+# bed(contents)
+
+
+
+ax = plt.axes(projection='3d')
+
+# Data for a three-dimensional line
+zline = z_data(bed_mesh)
+xline = x_data(bed_mesh)
+yline = y_data(bed_mesh)
+ax.plot3D(xline, yline, zline, 'gray')
+
+xMesh = x_data(bed_mesh)
+yMesh = y_data(bed_mesh)
+zMesh = z_data(bed_mesh)
+X, Y, Z = np.meshgrid(xMesh, yMesh, zMesh)
+
+
+
+# Data for three-dimensional scattered points
+zdata = zline
+xdata = xline
+ydata = yline
+ax.scatter3D(xdata, ydata, zdata, c=zdata, cmap='Greens')
+
+plt.show()
+
+
 
 
