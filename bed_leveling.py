@@ -8,7 +8,7 @@ average offset from zero using the average as 0
 
 todo:
 make z min and max scale depending on min and max of the array
-
+make third graph with offset array
 """
 
 #
