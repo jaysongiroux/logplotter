@@ -67,6 +67,14 @@ def average1(mesh):
 def dev(max,min):
     return max - min
 
+
+"""
+todo:
+1. 2D top down view similar to how prusa does it.
+
+
+
+"""
 def graphtoolpath(mesh):
     fig = plt.figure(figsize = (13, 8))
     ax = fig.add_subplot(221, projection='3d')
