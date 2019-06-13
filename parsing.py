@@ -13,6 +13,8 @@ todo:
 5. determine how long te printer has been printing
 6. generat statistics of the printer
     a. print time
+
+** make compatible for 2.7
 """
 
 

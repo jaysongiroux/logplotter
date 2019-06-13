@@ -78,27 +78,15 @@ todo:
 def graphtoolpath(mesh):
     fig = plt.figure(figsize = (13, 8))
     ax = fig.add_subplot(221, projection='3d')
-    # x = y = np.arange(0, 300, 50) #min, max, steps
+
     x = xcords(mesh)
     y = ycords(mesh)
     z = zcords(mesh)
 
-    # print(x)
-    # print("---")
-    # print(y)
-    X,Y,Z= np.meshgrid(x, y,z)
     ax.plot3D(x,y,z,'gray')
     ax.plot_trisurf(x,y,z,cmap='Reds') #surface
     ax.set_zlim(-.5, .5)
 
-    #ax.plot3D(x,y,z,'gray') #tool path
-    # ax.scatter3D(x,y,z,c=z,cmap='Greys')
-    #now to work on z cords
-    # print("shape",X.shape)
-    #
-    # Z = zs.reshape(X.shape)
-    # print(np.array(Z))
-    # ax.plot_surface(X, Y, Z)
     plt.title('Bed leveling')
     plt.xlabel('X Axis (mm)')
     ax.set_ylabel('Y Axis (mm)')
@@ -109,22 +97,13 @@ def graphtoolpath(mesh):
     x = xcords(mesh)
     y = ycords(mesh)
     z = zcords(mesh)
-    # print(x)
-    # print("---")
-    # print(y)
-    X, Y, Z = np.meshgrid(x, y, z)
+
     toolpath.plot3D(x, y, z, 'gray')
-    # toolpath.plot_trisurf(x, y, z, cmap='Reds')  # surface
-    # ax.plot3D(x,y,z,'gray') #tool path
+
     toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
     toolpath.set_zlim(-.5, .5)
 
-    # now to work on z cords
-    # print("shape",X.shape)
-    #
-    # Z = zs.reshape(X.shape)
-    # print(np.array(Z))
-    # ax.plot_surface(X, Y, Z)
+
     plt.title('Tool Path')
     toolpath.set_xlabel('X Axis (mm)')
     toolpath.set_ylabel('Y Axis (mm)')
@@ -147,7 +126,4 @@ def graphtoolpath(mesh):
     plt.show()
 
 
-# graphtoolpath(log_mesh)
 
-# offsetmesh = offset(ztoavg)
-# ztoavg = zcords(log_mesh)
