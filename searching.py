@@ -37,8 +37,6 @@ def printtime(a): #a = contents to be search, f=array of filtered words
 
     final=[]
     for i in range(len(result)):
-        # print(result[i])
-        # print("spec:", result[0][5])
         for p in range(len(result[i])):
             # print(result[i][p])
             if result[i][p].find("\"printTime\":")>=0:

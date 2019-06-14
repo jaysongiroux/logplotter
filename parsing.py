@@ -105,7 +105,7 @@ def GUI():
     def importcontents (filename):
         global filters
         #if more filters are added, needs to be added to this array
-        temp = [w.get(),b.get(),e.get(),e.get(),f.get(),l.get(),q.get()] #pulling chosen filters
+        temp = [w.get(),b.get(),e.get(),e.get(),f.get(),l.get(),q.get(),p.get()] #pulling chosen filters
         custom = entry1.get()
         cusomArray = custom.split(',')
         for i in range(len(cusomArray)):temp.append(cusomArray[i])
@@ -148,6 +148,8 @@ def GUI():
     f=StringVar()
     l=StringVar()
     q=StringVar()
+    p=StringVar()
+
     entry1 = StringVar()
 
 
@@ -160,15 +162,15 @@ def GUI():
     cb4 = Checkbutton(r, text='FAILS', variable=f,onvalue="fail",offvalue="").grid(row=6, column=1)
     cb5 = Checkbutton(r, text='LEVEL OUTPUT', variable=l,onvalue="Raw",offvalue="").grid(row=7, column=0)
     cb6 = Checkbutton(r, text='PRINT TIME', variable=q,onvalue="\"printtime\":",offvalue="").grid(row=7,column=1)
-
+    cb7 = Checkbutton(r, text='Print Job initialization', variable=p,onvalue="Print Job initialization",offvalue="").grid(row=8,column=0)
 
     #custom entry row 8
-    custom_label = Label(text="Custom Filter (EX:fail,WARN,bed...):").grid(row=8,column=0,sticky="e",pady=(0,15))
-    custom_entry = Entry(r, text="Custom filters seperated by commas. Ex: fail,WARN,bed,laser",width=25,textvariable=entry1).grid(row=8,column=1,sticky="w",pady=(0,15))
+    custom_label = Label(text="Custom Filter (EX:fail,WARN,bed...):").grid(row=9,column=0,sticky="e",pady=(0,15))
+    custom_entry = Entry(r, text="Custom filters seperated by commas. Ex: fail,WARN,bed,laser",width=25,textvariable=entry1).grid(row=9,column=1,sticky="w",pady=(0,15))
 
     # button1 = Button(r, text='Bed leveling', width=25, command=lambda : bed_leveling.graphtoolpath(bed_mesh)).grid(row=8, column=0)
-    button1 = Button(r, text='Bed leveling', width=25, command=lambda:searching.stip_bed_values(logfile(filename,False))).grid(row=9, column=0) #array of contents from get_contents
-    button2 = Button(r, text='Parse Log With Filters', width=25, command=lambda:importcontents(filename)).grid(row=9, column=1)
+    button1 = Button(r, text='Bed leveling', width=25, command=lambda:searching.stip_bed_values(logfile(filename,False))).grid(row=10, column=0) #array of contents from get_contents
+    button2 = Button(r, text='Parse Log With Filters', width=25, command=lambda:importcontents(filename)).grid(row=10, column=1)
 
 
 
