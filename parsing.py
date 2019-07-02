@@ -1,15 +1,9 @@
 """
-filters:
-    - INFO
-    - WARNING
-    - bed info
-
 todo:
-4. change the filter algorithm.
-    a. current - O(n^k)
 6. generat statistics of the printer
-    a. print time
-7. make algorithm more efficent. cannot load log files over 7MB
+    a. print time (X)
+
+
 """
 from mpl_toolkits import mplot3d
 import numpy as np
@@ -24,31 +18,13 @@ from mpl_toolkits.mplot3d import axes3d
 from tkinter import *
 filename = ""
 
-
-
-
-#returns filtered contents
-def display_filters(contents,filter):
-    tempC = []
-
-    for i in range(len(contents)):
-        for a in range(len(filter)):
-            if filter[a].lower() in contents[i].lower():
-                # print(contents[i])
-                tempC.append(contents[i])
-            else: continue
-    return tempC
-
-
 def x_data(data):
     tempX =  [i[0] for i in data]
     return tempX
 
-
 def y_data(data):
     tempY = [i[1] for i in data]
     return  tempY
-
 
 def z_data(data):
     tempz = [i[2] for i in data]
@@ -59,24 +35,32 @@ def z_data(data):
 def logfile(filename,bool,o="null"):
     if bool == True: #if given  filter
         with open(filename,'r') as u:
-            x = u.readlines()
-        return display_filters(x,o)
-
+            tempcontent =[]
+            numOfFilters = len(o)
+            for line in u:
+                for i in range(numOfFilters):
+                    if o[i].lower() in line.lower():
+                        # print(o[i])
+                        tempcontent.append(line)
+                    else: continue
+            # without applying any filters, a log file is dumped into X
+        u.close() #new to manage memory
+        return tempcontent
+    #this is when there is no filters
     else:
         with open(filename, 'r') as f:
+
             x = f.readlines()
+        f.close() #new to manage memory
         return x
 
-def displayContents(contents):
-    for i in range(len(contents)):
-        print(contents[i])
+# def displayContents(contents):
+#     for i in range(len(contents)):
+#         print(contents[i])
 
 def remove_spaces(a):
     a = [i for i in a if i]
     return str(a)
-
-
-
 
 
 """
@@ -89,6 +73,8 @@ bugs:
 
 """
 filters=[]
+
+
 def GUI():
 
     def browse_button():
@@ -99,9 +85,12 @@ def GUI():
         global filters
         #if more filters are added, needs to be added to this array
         temp = [w.get(),b.get(),e.get(),e.get(),f.get(),l.get(),q.get(),p.get()] #pulling chosen filters
-        custom = entry1.get()
-        cusomArray = custom.split(',')
-        for i in range(len(cusomArray)):temp.append(cusomArray[i])
+        custom = entry1.get() #custom filters
+        cusomArray = custom.split(',') #splittinf for multiple filters
+
+        #adding custom filter
+        for i in range(len(cusomArray)):
+            temp.append(cusomArray[i])
 
         if w.get()=="WARNING": temp.append("WRN")
 
@@ -154,7 +143,7 @@ def GUI():
     cb3 = Checkbutton(r, text='ERRORS', variable=e, onvalue="ERROR",offvalue="").grid(row=6, column=0)
     cb4 = Checkbutton(r, text='FAILS', variable=f,onvalue="fail",offvalue="").grid(row=6, column=1)
     cb5 = Checkbutton(r, text='LEVEL OUTPUT', variable=l,onvalue="Raw",offvalue="").grid(row=7, column=0)
-    cb6 = Checkbutton(r, text='PRINT TIME', variable=q,onvalue="\"printtime\":",offvalue="").grid(row=7,column=1)
+    cb6 = Checkbutton(r, text='PRINT TIME', variable=q,onvalue="\"printTime\":",offvalue="").grid(row=7,column=1)
     cb7 = Checkbutton(r, text='Print Job initialization', variable=p,onvalue="Print Job initialization",offvalue="").grid(row=8,column=0)
 
     #custom entry row 8
@@ -165,15 +154,17 @@ def GUI():
     button1 = Button(r, text='Bed leveling', width=25, command=lambda:searching.stip_bed_values(logfile(filename,False))).grid(row=10, column=0) #array of contents from get_contents
     button2 = Button(r, text='Parse Log With Filters', width=25, command=lambda:importcontents(filename)).grid(row=10, column=1)
 
+    def quickInfo(filename):
+        tempa = ["\"printTime\":"]
+        a = logfile(filename,True, tempa)
+        abc = searching.printtime(a)
+        printTimeLabelInfo = Label(r, text=abc).grid(row=12, column=1, sticky="news", pady=(5, 5))
 
-
+    #include information below the buttons to submit.
+    QuickInfoButton = Button(r,text="Quick Info", width=25, command=lambda:quickInfo(filename)).grid(row=11,column=0,sticky="news",pady=(5,0))
+    printtimeLabel = Label(r,text='Print Time: ').grid(row=12,column=0,sticky="news",pady=(5,5))
     r.mainloop()
 
-
-
-    """
-    2D plot of the bed of the high and low points along with the 3D projection
-    """
 def parsed_GUI(contents):
     root=Tk()
 
@@ -183,11 +174,6 @@ def parsed_GUI(contents):
     title_label = Label(root, text=filename + "\n Parsed log:")
     title_label.config(font=fontlabel)
     title_label.grid(row=0,column=0,sticky="news")
-    # print("filename: ", filename)
-
-    # label2 = Label(root, text="Parsed Log: ")
-    # label2.config(font=fontlabel)
-    # label2.grid(row=0, column=1,columnspan=2,sticky="news")
     label1 = Label(root,text="statistics: ")
     label1.config(font=fontlabel)
     label1.grid(row=0, column=4,columnspan=4,sticky="news")
@@ -210,7 +196,14 @@ def parsed_GUI(contents):
     string2 = "\nFilters: " + remove_spaces(filters)
     time.insert(INSERT,string2)
 
+
 GUI()
+
+"""
+future ideas:
+    - 
+
+"""
 
 
 
