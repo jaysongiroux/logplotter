@@ -5,19 +5,12 @@ filters:
     - bed info
 
 todo:
-1. parse log for bed levling array =
-2. parse log to total print time perlog aquiered
-3. warning >> "WRN"
 4. change the filter algorithm.
     a. current - O(n^k)
-5. determine how long te printer has been printing
 6. generat statistics of the printer
     a. print time
-
-** make compatible for 2.7
+7. make algorithm more efficent. cannot load log files over 7MB
 """
-
-
 from mpl_toolkits import mplot3d
 import numpy as np
 import matplotlib.pyplot as plt

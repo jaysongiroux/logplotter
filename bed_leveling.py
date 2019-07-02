@@ -22,28 +22,19 @@ def offset(mesh):
     zero = average1(mesh)
     for i in range(len(mesh)):
         offset[i] = zero - mesh[i]
-        # temp = zero - mesh[i]
-        # np.append(offset,temp)
-    # print("offset: ",offset)
     average = np.average(offset)
-    # print(average)
     return average
 
 def xcords(mesh):
     tempx = [i[0] for i in mesh]
-    # x = np.arange(tempx)
     return tempx
 
 def ycords(mesh):
     tempy = [i[1] for i in mesh]
-    # y = np.arange(tempy)
     return tempy
 
 def zcords(mesh):
     tempz = [i[2] for i in mesh]
-    # for i in range(len(tempz)):
-        # tempz[i]=tempz[i]/1000
-    # z = np.arange(tempz)
     return tempz
 
 def maxi(mesh):
@@ -61,20 +52,16 @@ def average1(mesh):
     length = len(tempz)
     adding = np.sum(tempz)
     ave = adding/length
-    # print("average: ", ave)
     return round(ave,10)
 
 def dev(max,min):
     return max - min
 
-
 """
 todo:
 1. 2D top down view similar to how prusa does it.
-
-
-
 """
+
 def graphtoolpath(mesh):
     fig = plt.figure(figsize = (13, 8))
     ax = fig.add_subplot(221, projection='3d')
