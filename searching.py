@@ -75,9 +75,9 @@ def reverse_contents(a): #this method is used for flipping the array of informat
     return b
 
 def stip_bed_values(a):
-    a= reverse_contents(a)
+    a=reverse_contents(a)
     result=[]
-    #print("original: ",a)
+
     for i in range(len(a)): #0...1
         result.append([x.strip() for x in a[i].split(':')])
 
