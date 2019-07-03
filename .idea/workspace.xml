@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="415f803a-a055-4902-9208-72a547f59b83" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/depend.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bed_leveling.py" beforeDir="false" afterPath="$PROJECT_DIR$/bed_leveling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parsing.py" beforeDir="false" afterPath="$PROJECT_DIR$/parsing.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/searching.py" beforeDir="false" afterPath="$PROJECT_DIR$/searching.py" afterDir="false" />
@@ -17,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bed_leveling.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="63">
+              <caret line="3" selection-end-line="3" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -26,12 +28,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parsing.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="562">
-              <caret line="139" column="130" selection-start-line="139" selection-start-column="130" selection-end-line="139" selection-end-column="130" />
+            <state relative-caret-position="189">
+              <caret line="9" column="21" lean-forward="true" selection-start-line="7" selection-end-line="9" selection-end-column="21" />
               <folding>
+                <element signature="e#157#187#0" expanded="true" />
                 <element signature="e#1039#1085#0" />
                 <element signature="e#1110#1156#0" />
                 <element signature="e#1181#1226#0" />
@@ -41,11 +44,23 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/depend.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/searching.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1808">
-              <caret line="97" column="29" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+            <state relative-caret-position="45">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="13" />
+              <folding>
+                <element signature="e#238#256#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -66,6 +81,8 @@
     <findStrings>
       <find>printtime</find>
       <find>filename</find>
+      <find>import</find>
+      <find>fore</find>
       <find>print</find>
     </findStrings>
   </component>
@@ -76,9 +93,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/text.log" />
-        <option value="$PROJECT_DIR$/bed_leveling.py" />
         <option value="$PROJECT_DIR$/searching.py" />
         <option value="$PROJECT_DIR$/parsing.py" />
+        <option value="$PROJECT_DIR$/bed_leveling.py" />
+        <option value="$PROJECT_DIR$/depend.txt" />
       </list>
     </option>
   </component>
@@ -109,6 +127,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -159,11 +178,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24980143" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20529328" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Python Console" />
@@ -171,7 +190,7 @@
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32966226" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.10705596" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -184,6 +203,13 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/text.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -192,17 +218,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/text.log">
+    <entry file="file://$PROJECT_DIR$/parsing.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state relative-caret-position="189">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="7" selection-end-line="9" selection-end-column="21" />
+          <folding>
+            <element signature="e#157#187#0" expanded="true" />
+            <element signature="e#1039#1085#0" />
+            <element signature="e#1110#1156#0" />
+            <element signature="e#1181#1226#0" />
+            <element signature="e#2008#2849#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bed_leveling.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="63">
+          <caret line="3" selection-end-line="3" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -211,21 +244,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/searching.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1808">
-          <caret line="97" column="29" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+        <state relative-caret-position="45">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="13" />
+          <folding>
+            <element signature="e#238#256#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parsing.py">
+    <entry file="file://$PROJECT_DIR$/depend.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="139" column="130" selection-start-line="139" selection-start-column="130" selection-end-line="139" selection-end-column="130" />
-          <folding>
-            <element signature="e#1039#1085#0" />
-            <element signature="e#1110#1156#0" />
-            <element signature="e#1181#1226#0" />
-            <element signature="e#2008#2849#0" />
-          </folding>
+        <state relative-caret-position="42">
+          <caret line="2" column="5" selection-start-line="2" selection-start-column="5" selection-end-line="2" selection-end-column="5" />
         </state>
       </provider>
     </entry>

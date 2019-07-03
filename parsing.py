@@ -5,16 +5,8 @@ todo:
 8. needs to be better at looking for bed leveling data. always takes way too long.
 
 """
-from mpl_toolkits import mplot3d
-import numpy as np
-import matplotlib.pyplot as plt
-from colorama import Fore
 from tkinter import filedialog
-import re
-
 import searching
-import bed_leveling #for some reason this fails however it still works
-from mpl_toolkits.mplot3d import axes3d
 from tkinter import *
 filename = ""
 
@@ -112,7 +104,7 @@ def GUI():
         parsed_GUI(contents)
 
 
-    print(Fore.WHITE + "[INFO] Starting...")
+    print("[INFO] Starting...")
 
     r = Tk()
     # r.geometry('500x400')
