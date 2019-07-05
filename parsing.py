@@ -188,7 +188,7 @@ def parsed_GUI(contents):
     string2 = "\nFilters: " + remove_spaces(filters)
     time.insert(INSERT,string2)
 
-GUI()
+
 
 
 
