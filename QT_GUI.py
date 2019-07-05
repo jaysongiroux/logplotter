@@ -8,34 +8,7 @@ import parsing
 
 class MFParser(QWidget):
     filename = ""
-
-    def remove_spaces(self,a):
-        a = [i for i in a if i]
-        return str(a)
-
-    def logfile(self,bool,o="null"):
-        if bool == True:  # if given  filter
-            with open(filename, 'r') as u:
-                temp = []
-                numOfFilters = len(o)
-                for line in u:
-                    for i in range(numOfFilters):
-                        if o[i].lower() in line.lower():
-                            # print(o[i])
-                            temp.append(line)
-                        else:
-                            continue
-                # without applying any filters, a log file is dumped into X
-            u.close()  # new to manage memory
-            return temp
-        # this is when there is no filters
-        else:
-            with open(filename, 'r') as f:
-
-                x = f.readlines()
-            f.close()  # new to manage memory
-            return x
-
+    contents = ""
 
     def __init__(self):
         super().__init__()
@@ -47,14 +20,10 @@ class MFParser(QWidget):
         global filename
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
         filename = fname[0]
-
-    def parsebutton(self,filters): #needs an array of filters
-        #pulling the filters first
-        #building the array
-
-        print("parse was pressed")
+        print(filename)
 
     def bedlevel(self):
+        print(filename)
         print("bed leveling was pressed")
 
     def filterHandeler(self):
@@ -68,6 +37,34 @@ class MFParser(QWidget):
 
         print("calculating quick information")
 
+    def logfile(self,filter):  # bool is if filters exsist, o is the filter array
+        print("reading file")
+        global contents
+        
+        if len(filename)>0:
+            if len(filter) > 0:  # if given  filter
+                with open(filename, 'r') as u:
+                    temp = []
+                    numOfFilters = len(filter)
+                    for line in u:
+                        for i in range(numOfFilters):
+                            if filter[i].lower() in line.lower():
+                                temp.append(line)
+                            else:
+                                continue
+                    # without applying any filters, a log file is dumped into X
+                u.close()  # new to manage memory
+                for row in temp: print (row)
+                return temp
+            # this is when there is no filters
+            else:
+                with open(filename, 'r') as f:
+
+                    x = f.readlines()
+                f.close()  # new to manage memory
+                for row in x: print(row)
+                return x
+        else: print("please choose a file first")
 
 
     def initUI(self):
@@ -85,6 +82,7 @@ class MFParser(QWidget):
                 if b ==True: filter.append(a)
                 else: filter.remove(a)
             print("Filter: ",filter,"Checked: ",b)
+
 
         app.setStyle("Fusion")
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
@@ -117,7 +115,7 @@ class MFParser(QWidget):
         #button pressed events
         browsebutton.clicked.connect(self.Broweserbutton)
         bedlevelbutton.clicked.connect(self.bedlevel)
-        parsebutton.clicked.connect(self.parsebutton)
+        parsebutton.clicked.connect(lambda:MFParser.logfile(self,filter))
         quickinfoButton.clicked.connect(self.quickinfobutt)
 
         #defining check button functions
