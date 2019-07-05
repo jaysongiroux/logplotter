@@ -1,14 +1,19 @@
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QKeySequence, QPalette, QColor
+from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt
+from PyQt5 import *
 
-class Example(QWidget):
+
+
+
+class MFParser(QWidget):
 
     def __init__(self):
         super().__init__()
 
         self.initUI()
+
 
     def initUI(self):
         app.setStyle("Fusion")
@@ -46,8 +51,12 @@ class Example(QWidget):
         toplabel = QLabel("Markforged Log Parser")
         featurelabel = QLabel("Features")
         filterslabel = QLabel("Filters")
+        # featurelabel.setTextAlignment(Qt.AlignRight)
+        # filterslabel.setTextAlignment(Qt.AlignLeft)
+
+
         parsebutton = QPushButton("Parse Log")
-        browsebutton = QPushButton("Browse...")
+        browsebutton = QPushButton("Browse")#browse button
         bedlevelbutton = QPushButton("Bed Leveling Data")
         quickinfolabel = QLabel("Quick Info:")
         printtimelabel = QLabel("print Time:")
@@ -59,6 +68,7 @@ class Example(QWidget):
         LEVELOUTPUT = QCheckBox("LEVEL OUTPUT")
         PRINTTIME = QCheckBox("PRINT TIME")
         PRINTJOB = QCheckBox("PRINT JOB INITIALIZATION")
+
 
 
 
@@ -110,23 +120,21 @@ class Example(QWidget):
         middlehbox.addLayout(filterhbox)
         middlehbox.addLayout(buttonHbox)  #filtervbox
 
+
         #defining the final VBOX
         finalVBOX = QVBoxLayout()
         finalVBOX.addLayout(welcomehbox) #,middlehbox,quickinfohbox
         finalVBOX.addLayout(titleshbox)
         finalVBOX.addLayout(middlehbox)
         finalVBOX.addLayout(quickinfohbox)
-        #final layout
+
+
         self.setLayout(finalVBOX)
 
-
-        #size of main window
-        self.setGeometry(300, 300, 300, 150)
-        self.setWindowTitle('Log Plotter')
         self.show()
 
 
 if __name__ == '__main__':
     app = QApplication([])
-    ex = Example()
+    ex = MFParser()
     sys.exit(app.exec_())
