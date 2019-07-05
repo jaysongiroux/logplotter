@@ -12,6 +12,15 @@ import numpy as np
 import bed_leveling
 import ast
 
+def prime(x):
+    if x >2:
+        for i in range(2,x//2):
+            if (x%i)==0:
+                print("not a prime")
+                break
+        else: print("is a prime")
+    else: print("is a prime")
+
 
 def sectoday(q):
     days = divmod(q, 86400)
