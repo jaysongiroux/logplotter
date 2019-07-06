@@ -11,16 +11,7 @@ first try will be by splitting it up with commas
 import numpy as np
 import bed_leveling
 import ast
-
-def prime(x):
-    if x >2:
-        for i in range(2,x//2):
-            if (x%i)==0:
-                print("not a prime")
-                break
-        else: print("is a prime")
-    else: print("is a prime")
-
+import graph_qt_GUI
 
 def sectoday(q):
     days = divmod(q, 86400)
@@ -108,18 +99,14 @@ def stip_bed_values(a):
     for i in range(len(logger)):
         shapper.append(logger[i][0])
 
-
-    #print("shapper: ", shapper[0])
     s=shapper[0]
 
     a = ast.literal_eval(s)
     a = np.array(a)
 
-    print("a",a)
-
-    bed_leveling.graphtoolpath(a)
-
-    return a
+    # print(a)
+    graph_qt_GUI.App() #todo needs to be added back (a)
+    # bed_leveling.graphtoolpath(a)
 
 
 

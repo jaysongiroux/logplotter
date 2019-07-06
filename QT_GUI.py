@@ -1,14 +1,15 @@
 import sys
 from PyQt5.QtWidgets import *
 import qdarkstyle
-from PyQt5.QtGui import *
-from PyQt5.QtCore import Qt
-import parsing
+import searching
+import graph_qt_GUI
 
+# stip_bed_values(logfile(filename,True,bedLevelFilter))
 
 class MFParser(QWidget):
     filename = ""
     contents = ""
+    bedLevelFilter= ["Raw bed readings"]
 
     def __init__(self):
         super().__init__()
@@ -23,25 +24,14 @@ class MFParser(QWidget):
         print(filename)
 
     def bedlevel(self):
-        print(filename)
         print("bed leveling was pressed")
-
-    def filterHandeler(self):
-        print("filtering...")
-
-    def quickinfobutt(self):
-        """
-        process:
-            - filename -> parse for desiered filter (print time for now) -> formatted output
-        """
-
-        print("calculating quick information")
+        searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
+        # graph_qt_GUI.App(MFParser.logfile(self,MFParser.bedLevelFilter))
 
     def logfile(self,filter):  # bool is if filters exsist, o is the filter array
         print("reading file")
         global contents
-        
-        if len(filename)>0:
+        try:
             if len(filter) > 0:  # if given  filter
                 with open(filename, 'r') as u:
                     temp = []
@@ -54,7 +44,7 @@ class MFParser(QWidget):
                                 continue
                     # without applying any filters, a log file is dumped into X
                 u.close()  # new to manage memory
-                for row in temp: print (row)
+                #for row in temp: print (row)
                 return temp
             # this is when there is no filters
             else:
@@ -62,9 +52,15 @@ class MFParser(QWidget):
 
                     x = f.readlines()
                 f.close()  # new to manage memory
-                for row in x: print(row)
+                #for row in x: print(row)
                 return x
-        else: print("please choose a file first")
+        except:
+            print("please choose a file first")
+
+    def parsedGUI(self):
+        app = QApplication([])
+
+
 
 
     def initUI(self):
@@ -82,6 +78,14 @@ class MFParser(QWidget):
                 if b ==True: filter.append(a)
                 else: filter.remove(a)
             print("Filter: ",filter,"Checked: ",b)
+
+        def quickinfobutt(filename):
+            print("quick info")
+            tempa = ["\"printTime\":"]
+
+            a = MFParser.logfile( self ,tempa)
+            abc = searching.printtime(a)
+            quickinfotime.setText(abc)
 
 
         app.setStyle("Fusion")
@@ -101,6 +105,7 @@ class MFParser(QWidget):
 
         quickinfolabel = QLabel("Quick Info:")
         printtimelabel = QLabel("print Time:")
+        quickinfotime = QLabel()
 
         bedlevelingfilter = QCheckBox("Bed Leveling Data")
         warnings = QCheckBox("WARNINGS")
@@ -114,9 +119,9 @@ class MFParser(QWidget):
 
         #button pressed events
         browsebutton.clicked.connect(self.Broweserbutton)
-        bedlevelbutton.clicked.connect(self.bedlevel)
+        bedlevelbutton.clicked.connect(lambda:MFParser.bedlevel(self))
         parsebutton.clicked.connect(lambda:MFParser.logfile(self,filter))
-        quickinfoButton.clicked.connect(self.quickinfobutt)
+        quickinfoButton.clicked.connect(lambda:quickinfobutt(filename))
 
         #defining check button functions
         bedlevelingfilter.stateChanged.connect(lambda:alterfilter("RAW",bedlevelingfilter.isChecked()))
@@ -166,10 +171,11 @@ class MFParser(QWidget):
         #define quick info hbox
         quickinfohbox = QHBoxLayout()
         quickinfohbox.addWidget(quickinfolabel)
+        quickinfohbox.addWidget(quickinfotime)
 
         #define quick info info vbox
         quickinfoinfo = QVBoxLayout()
-        quickinfoinfo.addWidget(printtimelabel) #this will need to be added to in order to display information
+        quickinfoinfo.addWidget(printtimelabel)
 
         middlehbox = QHBoxLayout()
         middlehbox.addLayout(filterhbox)
