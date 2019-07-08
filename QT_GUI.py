@@ -23,7 +23,7 @@ crashes when you try to open several bed leveling windows at once
 
 todo:
 - add a "source code" hyper link in the bottom tool bar
-- 
+- if i have time, try to get the matlab onto the same GUI so not have to worry about multiple windows
 
 """
 
