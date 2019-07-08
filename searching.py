@@ -18,7 +18,7 @@ def sectoday(q):
     days = divmod(q, 86400)
     hours = divmod(days[1], 3600)
     minutes = divmod(hours[1], 60)
-    return "{} days, {} hours\n{} minutes, {} seconds" .format(days[0], hours[0], minutes[0], round(minutes[1],2))
+    return "{} days, {} hours {} minutes, {} seconds" .format(days[0], hours[0], minutes[0], round(minutes[1],2))
 
 
 def printtime(a): #a = contents to be search, f=array of filtered words

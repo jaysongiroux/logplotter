@@ -8,8 +8,9 @@ import qdarkstyle
 import searching
 import graph_qt_GUI
 import QT_SHOW_GRAPH
-import QT_parsed_GUI
 from PyQt5.QtWidgets import QApplication
+from matplotlib import cm
+import numpy as np
 
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -17,18 +18,25 @@ if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
 if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
     PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
-# stip_bed_values(logfile(filename,True,bedLevelFilter))
+"""
+crashes when you try to open several bed leveling windows at once
+
+todo:
+- add a "source code" hyper link in the bottom tool bar
+- 
+
+"""
 
 class MFParser(QWidget):
     filename = ""
     contents = ""
-    bedLevelFilter= ["Raw bed readings"]
+    bedLevelFilter = ["Raw bed readings"]
 
     def __init__(self):
         super().__init__()
         self.initUI()
 
-    #returns the filename the user selected
+    # returns the filename the user selected
     def Broweserbutton(self):
         print("browse was clicked")
         global filename
@@ -36,11 +44,10 @@ class MFParser(QWidget):
         filename = fname[0]
         print(filename)
 
-    #change this for different bed leveling information
+    # change this for different bed leveling information
     def bedlevel(self):
         print("bed leveling was pressed")
         searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
-        # graph_qt_GUI.App(MFParser.logfile(self,MFParser.bedLevelFilter))
 
     def logfile(self,filter):  # bool is if filters exsist, o is the filter array
         print("reading file")
@@ -59,7 +66,7 @@ class MFParser(QWidget):
                     # without applying any filters, a log file is dumped into X
                 u.close()  # new to manage memory
                 #for row in temp: print (row)
-                print(temp)
+                # print(temp)
                 return temp
             # this is when there is no filters
             else:
@@ -72,14 +79,10 @@ class MFParser(QWidget):
         except:
             print("please choose a file first")
 
-    def ParsingWindow(self):
-        QT_parsed_GUI.Parsing(content=MFParser.bedLevelFilter)
-        # searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
-
     def initUI(self):
         filter = []
 
-        def alterfilter(a,b,bool=False): #bool means the filter needs to add more than one value to the array
+        def alterfilter(a,b,bool=False):
             if bool == True:
                  if b ==True:
                      for i in range(len(a)): filter.append(a[i])
@@ -96,27 +99,36 @@ class MFParser(QWidget):
             print("quick info")
             tempa = ["\"printTime\":"]
 
-            a = MFParser.logfile( self ,tempa)
+            a = MFParser.logfile(self,tempa)
             abc = searching.printtime(a)
-            quickinfotime.setText(abc)
+            quickinfotime.setText("Quick Info: "+abc)
 
+        def ParsingWindow():
+            try:
+                content = self.logfile(filter)
+                string = ""
+                for i in range(len(content)):
+                    string = string + content[i]
+                parseddata.setText(string)
+            except:
+                parseddata.setText("Choose a better file, NERD\nEiger.io -> Printers -> Download Log")
 
         app.setStyle("Fusion")
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
         app.setApplicationName("Markforged Log parser")
+        QSize()
+
 
         toplabel = QLabel("Markforged Log Parser")
         author = QLabel("Author: Jason Giroux - Python 3.7 Using QT5")
 
-        featurelabel = QLabel("Features")
-        filterslabel = QLabel("Filters")
         parsebutton = QPushButton("Parse Log")
         browsebutton = QPushButton("Browse")#browse button
         bedlevelbutton = QPushButton("Bed Leveling Data")
         quickinfoButton = QPushButton("Calculate Quick Info")
 
-        quickinfolabel = QLabel("Quick Info:")
+        # quickinfolabel = QLabel("Quick Info:")
         printtimelabel = QLabel("print Time:")
         quickinfotime = QLabel()
 
@@ -130,10 +142,15 @@ class MFParser(QWidget):
         PRINTJOB = QCheckBox("PRINT JOB INITIALIZATION")
 
 
+        parseddata = QTextEdit()
+        # parseddata.setGeometry(600,600)
+        parseddataContainer = QHBoxLayout()
+        parseddataContainer.addWidget(parseddata)
+
         #button pressed events
         browsebutton.clicked.connect(self.Broweserbutton)
         bedlevelbutton.clicked.connect(lambda:MFParser.bedlevel(self))
-        parsebutton.clicked.connect(lambda:MFParser.ParsingWindow(self))  #content=MFParser.logfile(self,filter))
+        parsebutton.clicked.connect(lambda:ParsingWindow())  #content=MFParser.logfile(self,filter))
         quickinfoButton.clicked.connect(lambda:quickinfobutt(filename))
 
         #defining check button functions
@@ -151,18 +168,14 @@ class MFParser(QWidget):
         welcomehbox.addWidget(toplabel)
         welcomehbox.addWidget(author)
 
-        titleshbox = QHBoxLayout()
-        titleshbox.addWidget(filterslabel)
-        titleshbox.addWidget(featurelabel)
-
         # define vbox for filters
-        filtervboxleft = QVBoxLayout()
+        filtervboxleft = QHBoxLayout()
         filtervboxleft.addWidget(bedlevelingfilter)
         filtervboxleft.addWidget(warnings)
         filtervboxleft.addWidget(BED)
         filtervboxleft.addWidget(ERRORS)
 
-        filtervboxright = QVBoxLayout()
+        filtervboxright = QHBoxLayout()
         filtervboxright.addWidget(FAILS)
         filtervboxright.addWidget(LEVELOUTPUT)
         filtervboxright.addWidget(PRINTTIME)
@@ -175,7 +188,7 @@ class MFParser(QWidget):
         """
         will need to add filters here
         """
-        buttonHbox = QVBoxLayout()
+        buttonHbox = QHBoxLayout()
         buttonHbox.addWidget(browsebutton)
         buttonHbox.addWidget(parsebutton)
         buttonHbox.addWidget(bedlevelbutton)
@@ -183,11 +196,11 @@ class MFParser(QWidget):
 
         #define quick info hbox
         quickinfohbox = QHBoxLayout()
-        quickinfohbox.addWidget(quickinfolabel)
+        # quickinfohbox.addWidget(quickinfolabel)
         quickinfohbox.addWidget(quickinfotime)
 
         #define quick info info vbox
-        quickinfoinfo = QVBoxLayout()
+        quickinfoinfo = QHBoxLayout()
         quickinfoinfo.addWidget(printtimelabel)
 
         middlehbox = QHBoxLayout()
@@ -197,9 +210,9 @@ class MFParser(QWidget):
         #defining the final VBOX
         finalVBOX = QVBoxLayout()
         finalVBOX.addLayout(welcomehbox) #,middlehbox,quickinfohbox
-        finalVBOX.addLayout(titleshbox)
         finalVBOX.addLayout(middlehbox)
         finalVBOX.addLayout(quickinfohbox)
+        finalVBOX.addLayout(parseddataContainer)
 
         self.setLayout(finalVBOX)
         self.show()
