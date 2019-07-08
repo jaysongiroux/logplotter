@@ -1,9 +1,21 @@
 import sys
+import PyQt5
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5 import QtCore
+
 import qdarkstyle
 import searching
 import graph_qt_GUI
 import QT_SHOW_GRAPH
+import QT_parsed_GUI
+from PyQt5.QtWidgets import QApplication
+
+if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
+    PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
+if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
+    PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
 # stip_bed_values(logfile(filename,True,bedLevelFilter))
 
@@ -47,6 +59,7 @@ class MFParser(QWidget):
                     # without applying any filters, a log file is dumped into X
                 u.close()  # new to manage memory
                 #for row in temp: print (row)
+                print(temp)
                 return temp
             # this is when there is no filters
             else:
@@ -59,11 +72,9 @@ class MFParser(QWidget):
         except:
             print("please choose a file first")
 
-    def parsedGUI(self):
-        app = QApplication([])
-
-
-
+    def ParsingWindow(self):
+        QT_parsed_GUI.Parsing(content=MFParser.bedLevelFilter)
+        # searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
 
     def initUI(self):
         filter = []
@@ -122,7 +133,7 @@ class MFParser(QWidget):
         #button pressed events
         browsebutton.clicked.connect(self.Broweserbutton)
         bedlevelbutton.clicked.connect(lambda:MFParser.bedlevel(self))
-        parsebutton.clicked.connect(lambda:MFParser.logfile(self,filter))
+        parsebutton.clicked.connect(lambda:MFParser.ParsingWindow(self))  #content=MFParser.logfile(self,filter))
         quickinfoButton.clicked.connect(lambda:quickinfobutt(filename))
 
         #defining check button functions

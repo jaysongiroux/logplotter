@@ -4,6 +4,7 @@
     <list default="true" id="415f803a-a055-4902-9208-72a547f59b83" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/QT_GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/QT_GUI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/QT_SHOW_GRAPH.py" beforeDir="false" afterPath="$PROJECT_DIR$/QT_SHOW_GRAPH.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/QT_parsed_GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/QT_parsed_GUI.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bed_leveling.py" beforeDir="false" afterPath="$PROJECT_DIR$/bed_leveling.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/searching.py" beforeDir="false" afterPath="$PROJECT_DIR$/searching.py" afterDir="false" />
     </list>
@@ -44,8 +45,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/graph_qt_GUI.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="504">
-                  <caret line="44" selection-start-line="44" selection-end-line="59" selection-end-column="29" />
+                <state relative-caret-position="147">
+                  <caret line="27" column="28" lean-forward="true" selection-end-line="70" selection-end-column="25" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                     <element signature="e#1475#1524#0" />
@@ -57,33 +58,12 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/QT_SHOW_GRAPH.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="417">
-                  <caret line="171" column="28" lean-forward="true" selection-start-line="171" selection-start-column="28" selection-end-line="171" selection-end-column="28" />
-                  <folding>
-                    <element signature="e#0#31#0" expanded="true" />
-                    <element signature="e#4919#4972#0" />
-                    <element signature="e#5013#5066#0" />
-                    <element signature="e#5107#5160#0" />
-                    <element signature="e#5564#5639#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/QT_parsed_GUI.py">
-              <provider selected="true" editor-type-id="text-editor" />
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/QT_GUI.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="462">
-                  <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+                <state relative-caret-position="252">
+                  <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
                   <folding>
-                    <element signature="e#0#10#0" expanded="true" />
+                    <element signature="e#0#6#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -96,8 +76,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/QT_GUI.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="481">
-                  <caret line="34" column="23" lean-forward="true" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+                <state relative-caret-position="273">
+                  <caret line="13" selection-start-line="13" selection-end-line="17" selection-end-column="83" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                     <element signature="e#2384#2806#0" />
@@ -110,8 +90,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/bed_leveling.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="581">
-                  <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+                <state relative-caret-position="370">
+                  <caret line="29" column="56" lean-forward="true" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -122,10 +102,22 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/searching.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="642">
-                  <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
+                <state relative-caret-position="1080">
+                  <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
                   <folding>
                     <element signature="e#238#256#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/QT_SHOW_GRAPH.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="287">
+                  <caret line="39" column="25" lean-forward="true" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+                  <folding>
+                    <element signature="e#0#31#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -153,18 +145,21 @@
       <find>parse</find>
       <find>print(&quot;a</find>
       <find>about</find>
-      <find>print</find>
       <find>bedLever</find>
       <find>initUI</find>
       <find>compute_initial_figure</find>
       <find>super</find>
-      <find>ax</find>
-      <find>bedlevel</find>
       <find>axes</find>
-      <find>np.</find>
       <find>xcords</find>
+      <find>print()</find>
       <find>app</find>
+      <find>bedlevel</find>
+      <find>print</find>
+      <find>ax</find>
+      <find>np.</find>
+      <find>parsedgui</find>
       <find>print(</find>
+      <find>mesh</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -180,20 +175,19 @@
         <option value="$PROJECT_DIR$/../../codemonkies/primes/primes.py" />
         <option value="$PROJECT_DIR$/Info.txt" />
         <option value="$PROJECT_DIR$/parsing.py" />
-        <option value="$PROJECT_DIR$/QT_parsed_GUI.py" />
         <option value="$PROJECT_DIR$/graph_qt_GUI.py" />
-        <option value="$PROJECT_DIR$/bed_leveling.py" />
         <option value="$PROJECT_DIR$/searching.py" />
-        <option value="$PROJECT_DIR$/QT_GUI.py" />
+        <option value="$PROJECT_DIR$/bed_leveling.py" />
         <option value="$PROJECT_DIR$/QT_SHOW_GRAPH.py" />
+        <option value="$PROJECT_DIR$/QT_GUI.py" />
+        <option value="$PROJECT_DIR$/QT_parsed_GUI.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="42" />
     <option name="y" value="23" />
-    <option name="width" value="2518" />
-    <option name="height" value="1417" />
+    <option name="width" value="1440" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -284,6 +278,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="QT_parsed_GUI" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="logplotter" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/usr/local/bin/python3.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/QT_parsed_GUI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="graph_qt_GUI" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="logplotter" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -351,6 +366,7 @@
       <item itemvalue="Python.parsing" />
       <item itemvalue="Python.primes" />
       <item itemvalue="Python.QT_GUI" />
+      <item itemvalue="Python.QT_parsed_GUI" />
       <item itemvalue="Python.QT_SHOW_GRAPH" />
       <item itemvalue="Python.graph_qt_GUI" />
     </list>
@@ -369,16 +385,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="42" y="23" width="2518" height="1417" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15912762" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28183118" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.19058466" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32303733" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39939255" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -456,19 +472,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/graph_qt_GUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="44" selection-start-line="44" selection-end-line="59" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#1475#1524#0" />
-            <element signature="e#1551#1600#0" />
-            <element signature="e#1632#1681#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/parsing.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="211">
@@ -479,13 +482,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QT_parsed_GUI.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/graph_qt_GUI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="27" column="28" lean-forward="true" selection-end-line="70" selection-end-column="25" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#1475#1524#0" />
+            <element signature="e#1551#1600#0" />
+            <element signature="e#1632#1681#0" />
+          </folding>
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bed_leveling.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        <state relative-caret-position="370">
+          <caret line="29" column="56" lean-forward="true" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/QT_SHOW_GRAPH.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="39" column="25" lean-forward="true" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -494,8 +517,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/searching.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="108" column="25" selection-start-line="108" selection-start-column="25" selection-end-line="108" selection-end-column="25" />
+        <state relative-caret-position="1080">
+          <caret line="108" column="30" selection-start-line="108" selection-start-column="30" selection-end-line="108" selection-end-column="30" />
           <folding>
             <element signature="e#238#256#0" expanded="true" />
           </folding>
@@ -504,24 +527,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/QT_GUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+        <state relative-caret-position="273">
+          <caret line="13" selection-start-line="13" selection-end-line="17" selection-end-column="83" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#2384#2806#0" />
+            <element signature="e#2857#3043#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/QT_SHOW_GRAPH.py">
+    <entry file="file://$PROJECT_DIR$/QT_parsed_GUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="171" column="28" lean-forward="true" selection-start-line="171" selection-start-column="28" selection-end-line="171" selection-end-column="28" />
+        <state relative-caret-position="252">
+          <caret line="12" column="46" lean-forward="true" selection-start-line="12" selection-start-column="46" selection-end-line="12" selection-end-column="46" />
           <folding>
-            <element signature="e#0#31#0" expanded="true" />
-            <element signature="e#4919#4972#0" />
-            <element signature="e#5013#5066#0" />
-            <element signature="e#5107#5160#0" />
-            <element signature="e#5564#5639#0" />
+            <element signature="e#0#6#0" expanded="true" />
           </folding>
         </state>
       </provider>

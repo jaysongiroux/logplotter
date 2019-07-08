@@ -106,7 +106,7 @@ def stip_bed_values(a):
     a = np.array(a)
 
     # print(a)
-    QT_SHOW_GRAPH.Window() #todo needs to be added back (a)
+    QT_SHOW_GRAPH.Window(mesh=a) #todo needs to be added back (a)
     # bed_leveling.graphtoolpath(a)
 
 
