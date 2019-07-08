@@ -12,6 +12,7 @@ import numpy as np
 import bed_leveling
 import ast
 import graph_qt_GUI
+import QT_SHOW_GRAPH
 
 def sectoday(q):
     days = divmod(q, 86400)
@@ -105,7 +106,7 @@ def stip_bed_values(a):
     a = np.array(a)
 
     # print(a)
-    graph_qt_GUI.App() #todo needs to be added back (a)
+    QT_SHOW_GRAPH.Window() #todo needs to be added back (a)
     # bed_leveling.graphtoolpath(a)
 
 

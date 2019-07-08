@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 import qdarkstyle
 import searching
 import graph_qt_GUI
+import QT_SHOW_GRAPH
 
 # stip_bed_values(logfile(filename,True,bedLevelFilter))
 
@@ -23,6 +24,7 @@ class MFParser(QWidget):
         filename = fname[0]
         print(filename)
 
+    #change this for different bed leveling information
     def bedlevel(self):
         print("bed leveling was pressed")
         searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))

@@ -1,96 +1,220 @@
-import sys
-
-from PyQt5.QtWidgets import QApplication, QMainWindow, QMenu, QVBoxLayout, QSizePolicy, QMessageBox, QWidget, QPushButton
-from PyQt5.QtGui import QIcon
-import numpy as np
-
-
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
-from mpl_toolkits.mplot3d import Axes3D
-
-from matplotlib import cm
-
 import matplotlib.pyplot as plt
-
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+import numpy as np
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QPalette
+import PyQt5.QtCore as Qt
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
 import random
+import qdarkstyle
+from PyQt5.QtCore import QSize
 
-class App(QMainWindow):
 
-    def __init__(self):
-        super().__init__()
-        self.left = 10
-        self.top = 10
-        self.title = 'PyQt5 matplotlib example - pythonspot.com'
-        self.width = 640
-        self.height = 400
-        self.initUI()
+"""
+average offset from zero using the average as 0
 
-    def initUI(self):
-        self.setWindowTitle(self.title)
-        self.setGeometry(self.left, self.top, self.width, self.height)
+todo:
+make z min and max scale depending on min and max of the array
+make third graph with offset array
+"""
+mesh = [[11.0, 60.0, -0.066], [33.0, 60.0, -0.0532], [55.0, 60.0, -0.0444], [77.0, 60.0, -0.0276],
+        [99.0, 60.0, -0.0198], [121.0, 60.0, -0.007], [143.0, 60.0, -0.0016], [165.0, 60.0, -0.0007],
+        [187.0, 60.0, 0.0054], [209.0, 60.0, 0.0012], [231.0, 60.0, 0.0044], [253.0, 60.0, -0.0037],
+        [275.0, 60.0, -0.0179], [297.0, 60.0, -0.0437], [319.0, 60.0, -0.067], [319.0, 95.0, -0.0463],
+        [297.0, 95.0, -0.0199], [275.0, 95.0, 0.0079], [253.0, 95.0, 0.0264], [231.0, 95.0, 0.0349],
+        [209.0, 95.0, 0.0333], [187.0, 95.0, 0.0353], [165.0, 95.0, 0.0321], [143.0, 95.0, 0.0314],
+        [121.0, 95.0, 0.0254], [99.0, 95.0, 0.0149], [77.0, 95.0, 0.0033], [55.0, 95.0, -0.0135], [33.0, 95.0, -0.0266],
+        [11.0, 95.0, -0.0395], [11.0, 130.0, -0.046], [33.0, 130.0, -0.0364], [55.0, 130.0, -0.021],
+        [77.0, 130.0, -0.0046], [99.0, 130.0, 0.0103], [121.0, 130.0, 0.022], [143.0, 130.0, 0.029],
+        [165.0, 130.0, 0.0269], [187.0, 130.0, 0.0302], [209.0, 130.0, 0.026], [231.0, 130.0, 0.0254],
+        [253.0, 130.0, 0.0156], [275.0, 130.0, -0.004], [297.0, 130.0, -0.0328], [319.0, 130.0, -0.061],
+        [319.0, 165.0, -0.0727], [297.0, 165.0, -0.0458], [275.0, 165.0, -0.0145], [253.0, 165.0, 0.0072],
+        [231.0, 165.0, 0.0195], [209.0, 165.0, 0.0205], [187.0, 165.0, 0.0262], [165.0, 165.0, 0.023],
+        [143.0, 165.0, 0.025], [121.0, 165.0, 0.0198], [99.0, 165.0, 0.0074], [77.0, 165.0, -0.0089],
+        [55.0, 165.0, -0.0258], [33.0, 165.0, -0.0396], [11.0, 165.0, -0.0504], [11.0, 200.0, -0.0481],
+        [33.0, 200.0, -0.0376], [55.0, 200.0, -0.0277], [77.0, 200.0, -0.0118], [99.0, 200.0, 0.003],
+        [121.0, 200.0, 0.0145], [143.0, 200.0, 0.0197], [165.0, 200.0, 0.0159], [187.0, 200.0, 0.0171],
+        [209.0, 200.0, 0.012], [231.0, 200.0, 0.0109], [253.0, 200.0, -0.0022], [275.0, 200.0, -0.0198],
+        [297.0, 200.0, -0.0522], [319.0, 200.0, -0.0761], [319.0, 235.0, -0.0697], [297.0, 235.0, -0.0451],
+        [275.0, 235.0, -0.016], [253.0, 235.0, 0.003], [231.0, 235.0, 0.0146], [209.0, 235.0, 0.0107],
+        [187.0, 235.0, 0.0174], [165.0, 235.0, 0.0173], [143.0, 235.0, 0.0235], [121.0, 235.0, 0.02],
+        [99.0, 235.0, 0.0116], [77.0, 235.0, -0.0017], [55.0, 235.0, -0.0167], [33.0, 235.0, -0.0276],
+        [11.0, 235.0, -0.0378], [11.0, 270.0, -0.0213], [33.0, 270.0, -0.0153], [55.0, 270.0, -0.0087],
+        [77.0, 270.0, 0.0068], [99.0, 270.0, 0.0163], [121.0, 270.0, 0.0246], [143.0, 270.0, 0.0279],
+        [165.0, 270.0, 0.0216], [187.0, 270.0, 0.0228], [209.0, 270.0, 0.0153], [231.0, 270.0, 0.0184],
+        [253.0, 270.0, 0.0071], [275.0, 270.0, -0.0103], [297.0, 270.0, -0.0409], [319.0, 270.0, -0.0616]]
 
-        m = PlotCanvas(self, width=5, height=4)
-        m.move(0,0)
+    #temp for now, will add seperate GUI
+    # labels = fig.add_subplot(223)
+    # info = fig.add_subplot(224)
+    # txt = "Max: {} \u03BCm\n Min: {} \u03BCm\n Average: {} \u03BCm\n Deviation: {}  \u03BCm\n Average Offset: {} \u03BCm ".format(round(maxi(mesh),4),round(mini(mesh),4),round(average1(z),4),round(dev(maxi(mesh),mini(mesh)),4),'%.2E' % Decimal(offset(z)),4)
 
-        button = QPushButton('PyQt5 button', self)
-        button.setToolTip('This s an example button')
-        button.move(500,0)
-        button.resize(140,100)
+    # labels.text(0.5, 0.5, txt, size=24, ha='center', va='center') #max
+    # labels.axis('off')
+    # info.axis('off')
+
+    #
+    # plt.setp(labels.get_xticklabels(), visible=False)
+    # plt.setp(labels.get_yticklabels(), visible=False)
+
+    # plt.show()
+
+def xcords(mesh):
+    tempx = [i[0] for i in mesh]
+    return tempx
+
+
+def ycords(mesh):
+    tempy = [i[1] for i in mesh]
+    return tempy
+
+
+def zcords(mesh):
+    tempz = [i[2] for i in mesh]
+    return tempz
+
+
+def offset(mesh):
+    offset = np.zeros(len(mesh))
+    zero = average1(mesh)
+    for i in range(len(mesh)):
+        offset[i] = zero - mesh[i]
+    average = np.average(offset)
+    return average
+
+def maxi(mesh):
+    tempz = zcords(mesh)
+    max = np.max(tempz)
+    return max
+
+def mini(mesh):
+    tempz = zcords(mesh)
+    min = np.min(tempz)
+    return min
+
+def average1(mesh):
+    tempz = mesh
+    length = len(tempz)
+    adding = np.sum(tempz)
+    ave = adding / length
+    return round(ave, 10)
+
+def dev(max, min):
+    return max - min
+
+class Window(QDialog):
+    def __init__(self, parent=None):
+        app = QApplication(sys.argv)
+        super(Window, self).__init__(parent)
+
+        def xcords(mesh):
+            tempx = [i[0] for i in mesh]
+            return tempx
+        def ycords(mesh):
+            tempy = [i[1] for i in mesh]
+            return tempy
+        def zcords(mesh):
+            tempz = [i[2] for i in mesh]
+            return tempz
+        def offset(mesh):
+            offset =[]
+            zero = average1(mesh)
+            for i in range(len(mesh)):
+                offset.append(zero - mesh[i])
+            average = np.average(offset)
+            return average
+        def maxi(mesh):
+            tempz = zcords(mesh)
+            max = np.max(tempz)
+            return max
+        def mini(mesh):
+            tempz = zcords(mesh)
+            min = np.min(tempz)
+            return min
+        def average1(mesh):
+            tempz = mesh
+            length = len(tempz)
+            adding = np.sum(tempz)
+            ave = adding / length
+            return round(ave, 10)
+        def dev(max, min):
+            return max - min
+
+
+        #styling
+        app.setStyle("Fusion")
+        app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
+
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        sizePolicy.setHeightForWidth(True)
+        self.setSizePolicy(sizePolicy)
+
+        #defining the figure the gui is placed on
+        self.figure = Figure()
+
+        #defining the canvas on the figure
+        self.canvas = FigureCanvas(self.figure) #this is where the graph is in the QT GUI
+        self.toolbar = NavigationToolbar(self.canvas, self)
+        self.lowerHBox = QHBoxLayout()
+        self.lowerVBoxRight = QVBoxLayout()
+        self.lowerVBoxLeft = QVBoxLayout()
+
+        #lower containers are used for information gathering for the given mesh
+        #define stats and add to content area of the GUI
+        # print(mesh)
+        offset = offset(mesh)
+        average = average1(mesh)
+        maximum = maxi(mesh)
+        minimum = mini(mesh)
+        dev = dev(maximum,minimum)#max min
+
+        self.lowerHBox.addLayout(self.lowerVBoxLeft)
+        self.lowerHBox.addLayout(self.lowerVBoxRight)
+        self.button = QLabel('Plot')
+        self.graphtoolpath()
+
+        # set the layout & toolbar
+        layout = QVBoxLayout()
+        layout.addWidget(self.toolbar)
+        layout.addWidget(self.canvas)
+        layout.addWidget(self.button)
+        layout.addLayout(self.lowerHBox)
+
+        #definign the lax VBOX everything is placed in
+        self.setLayout(layout)
 
         self.show()
+    def graphtoolpath(self):  # mesh is a 2d array with XYZ cords
+        x = xcords(mesh)
+        y = ycords(mesh)
+        z = zcords(mesh)
+        ax = self.figure.add_subplot(121, projection='3d')
+        # ax = self.figure.gca(projection='3d')
+        ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
+        ax.set_zlim(-.3, .3)
+
+        ax.set_xlabel('X Axis (mm)')
+        ax.set_ylabel('Y Axis (mm)')
+        ax.set_zlabel('Z Axis (um)')
+        #-----------Graph 2:
+        toolpath = self.figure.add_subplot(122,projection='3d')
+        toolpath.plot3D(x,y,z, 'grey')
+        toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
+        toolpath.set_zlim(-.3, .3)
+        toolpath.set_xlabel('X Axis (mm)')
+        toolpath.set_ylabel('Y Axis (mm)')
+        toolpath.set_zlabel('Z Axis (um)')
 
 
-class PlotCanvas(FigureCanvas):
-    def xcords(self,mesh):
-        tempx = [i[0] for i in mesh]
-        tempx = np.asarray(tempx)
-        return tempx
+        self.canvas.draw()
 
-    def ycords(self,mesh):
-        tempy = [i[1] for i in mesh]
-        tempy = np.asarray(tempy)
-        return tempy
+    def sizeHint(self):
+        return QSize(800,400)
 
-    def zcords(self,mesh):
-        tempz = [i[2] for i in mesh]
-        tempz = np.asarray(tempz)
-        return tempz
+    def sizeForWidth(self,width):
+        return width*.5
 
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi)
-
-
-        # self.axes = fig.add_subplot(111)
-
-        FigureCanvas.__init__(self, fig)
-        self.setParent(parent)
-
-        FigureCanvas.setSizePolicy(self,
-                QSizePolicy.Expanding,
-                QSizePolicy.Expanding)
-        FigureCanvas.updateGeometry(self)
-        self.plot()
-
-
-    def plot(self):
-        mesh = [[11.0, 60.0, -0.066], [33.0, 60.0, -0.0532], [55.0, 60.0, -0.0444], [77.0, 60.0, -0.0276], [99.0, 60.0, -0.0198], [121.0, 60.0, -0.007], [143.0, 60.0, -0.0016], [165.0, 60.0, -0.0007], [187.0, 60.0, 0.0054], [209.0, 60.0, 0.0012], [231.0, 60.0, 0.0044], [253.0, 60.0, -0.0037], [275.0, 60.0, -0.0179], [297.0, 60.0, -0.0437], [319.0, 60.0, -0.067], [319.0, 95.0, -0.0463], [297.0, 95.0, -0.0199], [275.0, 95.0, 0.0079], [253.0, 95.0, 0.0264], [231.0, 95.0, 0.0349], [209.0, 95.0, 0.0333], [187.0, 95.0, 0.0353], [165.0, 95.0, 0.0321], [143.0, 95.0, 0.0314], [121.0, 95.0, 0.0254], [99.0, 95.0, 0.0149], [77.0, 95.0, 0.0033], [55.0, 95.0, -0.0135], [33.0, 95.0, -0.0266], [11.0, 95.0, -0.0395], [11.0, 130.0, -0.046], [33.0, 130.0, -0.0364], [55.0, 130.0, -0.021], [77.0, 130.0, -0.0046], [99.0, 130.0, 0.0103], [121.0, 130.0, 0.022], [143.0, 130.0, 0.029], [165.0, 130.0, 0.0269], [187.0, 130.0, 0.0302], [209.0, 130.0, 0.026], [231.0, 130.0, 0.0254], [253.0, 130.0, 0.0156], [275.0, 130.0, -0.004], [297.0, 130.0, -0.0328], [319.0, 130.0, -0.061], [319.0, 165.0, -0.0727], [297.0, 165.0, -0.0458], [275.0, 165.0, -0.0145], [253.0, 165.0, 0.0072], [231.0, 165.0, 0.0195], [209.0, 165.0, 0.0205], [187.0, 165.0, 0.0262], [165.0, 165.0, 0.023], [143.0, 165.0, 0.025], [121.0, 165.0, 0.0198], [99.0, 165.0, 0.0074], [77.0, 165.0, -0.0089], [55.0, 165.0, -0.0258], [33.0, 165.0, -0.0396], [11.0, 165.0, -0.0504], [11.0, 200.0, -0.0481], [33.0, 200.0, -0.0376], [55.0, 200.0, -0.0277], [77.0, 200.0, -0.0118], [99.0, 200.0, 0.003], [121.0, 200.0, 0.0145], [143.0, 200.0, 0.0197], [165.0, 200.0, 0.0159], [187.0, 200.0, 0.0171], [209.0, 200.0, 0.012], [231.0, 200.0, 0.0109], [253.0, 200.0, -0.0022], [275.0, 200.0, -0.0198], [297.0, 200.0, -0.0522], [319.0, 200.0, -0.0761], [319.0, 235.0, -0.0697], [297.0, 235.0, -0.0451], [275.0, 235.0, -0.016], [253.0, 235.0, 0.003], [231.0, 235.0, 0.0146], [209.0, 235.0, 0.0107], [187.0, 235.0, 0.0174], [165.0, 235.0, 0.0173], [143.0, 235.0, 0.0235], [121.0, 235.0, 0.02], [99.0, 235.0, 0.0116], [77.0, 235.0, -0.0017], [55.0, 235.0, -0.0167], [33.0, 235.0, -0.0276], [11.0, 235.0, -0.0378], [11.0, 270.0, -0.0213], [33.0, 270.0, -0.0153], [55.0, 270.0, -0.0087], [77.0, 270.0, 0.0068], [99.0, 270.0, 0.0163], [121.0, 270.0, 0.0246], [143.0, 270.0, 0.0279], [165.0, 270.0, 0.0216], [187.0, 270.0, 0.0228], [209.0, 270.0, 0.0153], [231.0, 270.0, 0.0184], [253.0, 270.0, 0.0071], [275.0, 270.0, -0.0103], [297.0, 270.0, -0.0409], [319.0, 270.0, -0.0616]]
-        x = self.xcords(mesh)
-        y = self.ycords(mesh)
-        z = self.zcords(mesh)
-
-        data = [random.random() for i in range(25)]
-        ax = self.figure.add_subplot(111)
-
-        ax = self.figure.gca(projection='3d')
-        ax.plot_surface(x,y,z,rstride=1, cstride=1, cmap=cm.coolwarm,
-        linewidth=0, antialiased=True)
-        # ax.plot_surface(x, y, z)
-        # ax.plot(data, 'r-')
-        ax.set_title('PyQt Matplotlib Example')
-        self.draw()
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = App()
-    sys.exit(app.exec_())
