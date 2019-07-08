@@ -78,35 +78,37 @@ def reverse_contents(a): #this method is used for flipping the array of informat
 def stip_bed_values(a):
     a=reverse_contents(a)
     result=[]
+    try:
+        for i in range(len(a)): #0...1
+            result.append([x.strip() for x in a[i].split(':')])
 
-    for i in range(len(a)): #0...1
-        result.append([x.strip() for x in a[i].split(':')])
-
-    #print("result",result)
+        #print("result",result)
 
 
-    final =[]
+        final =[]
 
-    for i in range(len(result)):
-        for p in range(len(result[i])):
-            if result[i][p].find("Raw bed readings")>=0:
-                final.append(result[i][p+1])
-    logger=[]
-    for i in range(len(final)):
-        logger.append([x.strip() for x in final[i].split('<')])
+        for i in range(len(result)):
+            for p in range(len(result[i])):
+                if result[i][p].find("Raw bed readings")>=0:
+                    final.append(result[i][p+1])
+        logger=[]
+        for i in range(len(final)):
+            logger.append([x.strip() for x in final[i].split('<')])
 
-    shapper = []
-    # reshaping the 2d array into a 1D array without the first element
-    for i in range(len(logger)):
-        shapper.append(logger[i][0])
+        shapper = []
+        # reshaping the 2d array into a 1D array without the first element
+        for i in range(len(logger)):
+            shapper.append(logger[i][0])
 
-    s=shapper[0]
+        s=shapper[0]
 
-    a = ast.literal_eval(s)
-    a = np.array(a)
-
+        a = ast.literal_eval(s)
+        a = np.array(a)
+        QT_SHOW_GRAPH.Window(mesh=a, isValid=True)  # todo needs to be added back (a)
+    except:
+        a = [[1,0,0],[2,0,0],[3,0,0]]
     # print(a)
-    QT_SHOW_GRAPH.Window(mesh=a) #todo needs to be added back (a)
+        QT_SHOW_GRAPH.Window(mesh=a,isValid= False) #todo needs to be added back (a)
     # bed_leveling.graphtoolpath(a)
 
 

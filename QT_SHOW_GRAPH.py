@@ -52,7 +52,7 @@ def average1(mesh):
 
 
 class Window(QDialog):
-    def __init__(self, parent=None,mesh=""):#mesh is being passed corectly
+    def __init__(self, parent=None,mesh="",isValid=False):#mesh is being passed corectly
         self.mesh = mesh
         app = QApplication(sys.argv)
         super(Window, self).__init__(parent)
@@ -70,6 +70,10 @@ class Window(QDialog):
             print("Offset Average:",average)
             return average
 
+        if isValid == False:
+            print("Not Valid")
+
+
 
         #styling
         app.setStyle("Fusion")
@@ -83,15 +87,22 @@ class Window(QDialog):
         self.figure = Figure()
 
         #defining the canvas on the figure
+        self.titlebox = QHBoxLayout()
         self.canvas = FigureCanvas(self.figure) #this is where the graph is in the QT GUI
         self.toolbar = NavigationToolbar(self.canvas, self)
         self.lowerHBox = QHBoxLayout()
         self.lowerVBoxRight = QVBoxLayout()
         self.lowerVBoxLeft = QVBoxLayout()
+        self.footer = QHBoxLayout()
 
 
         #calculating information on given mesh
         #fix offset
+        self.title = QLabel("Mark Forged Bed Leveling Utility")
+        self.titlebox.addWidget(self.title)
+        self.sourceCode = QLabel("Source Code")
+        self.footer.addWidget(self.sourceCode)
+
         self.offset = QLabel("Average Offset: "+str(round(offset(zcords(mesh)),12))+" mm")
         self.average = QLabel("Average"+str(average1(zcords(mesh)))+" um")
         self.maximum = QLabel("Maximum"+str(np.max(zcords(mesh)))+" um")
@@ -115,9 +126,11 @@ class Window(QDialog):
 
         # set the layout & toolbar
         layout = QVBoxLayout()
+        layout.addLayout(self.titlebox)
         layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
         layout.addLayout(self.lowerHBox)
+        layout.addLayout(self.footer)
 
         #definign the lax VBOX everything is placed in
         self.setLayout(layout)
@@ -129,23 +142,29 @@ class Window(QDialog):
         z = zcords(self.mesh)
         ax = self.figure.add_subplot(121, projection='3d')
         # ax = self.figure.gca(projection='3d')
-        ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
-        ax.set_zlim(-.3, .3)
+        try:
+            ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
+            ax.set_zlim(-.3, .3)
+            ax.set_xlabel('X Axis (mm)')
+            ax.set_ylabel('Y Axis (mm)')
+            ax.set_zlabel('Z Axis (um)')
+        except:
+            pass
 
-        ax.set_xlabel('X Axis (mm)')
-        ax.set_ylabel('Y Axis (mm)')
-        ax.set_zlabel('Z Axis (um)')
         #-----------Graph 2:
-        toolpath = self.figure.add_subplot(122,projection='3d')
-        toolpath.plot3D(x,y,z, 'grey')
-        toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
-        toolpath.set_zlim(-.3, .3)
-        toolpath.set_xlabel('X Axis (mm)')
-        toolpath.set_ylabel('Y Axis (mm)')
-        toolpath.set_zlabel('Z Axis (um)')
+        try:
+            toolpath = self.figure.add_subplot(122,projection='3d')
+            toolpath.plot3D(x,y,z, 'grey')
+            toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
+            toolpath.set_zlim(-.3, .3)
+            toolpath.set_xlabel('X Axis (mm)')
+            toolpath.set_ylabel('Y Axis (mm)')
+            toolpath.set_zlabel('Z Axis (um)')
+        except:
+            pass
+        try: self.canvas.draw()
+        except: pass
 
-
-        self.canvas.draw()
 
     def sizeHint(self):
         return QSize(800,500)

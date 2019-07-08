@@ -47,7 +47,9 @@ class MFParser(QWidget):
     # change this for different bed leveling information
     def bedlevel(self):
         print("bed leveling was pressed")
-        searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
+        try:
+            searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
+        except: pass
 
     def logfile(self,filter):  # bool is if filters exsist, o is the filter array
         print("reading file")
@@ -122,6 +124,7 @@ class MFParser(QWidget):
 
         toplabel = QLabel("Markforged Log Parser")
         author = QLabel("Author: Jason Giroux - Python 3.7 Using QT5")
+        sourceCode = QLabel("Source Code")
 
         parsebutton = QPushButton("Parse Log")
         browsebutton = QPushButton("Browse")#browse button
