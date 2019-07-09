@@ -1,8 +1,7 @@
 # Log Plotter
 
-Used to Input a 2D array outputted from some machinery. This is used as a visual representation of the data output from the machinery and run some very basic statistics. 
+Some 3D Printers Output Log Files with a ton of information. I made a tool to parse through these log files and filter for key words that could be vital for debugging a machine. 
 
-More will be added to this project to parse logs from the machinery for keywords, time stamps, and specific data.
+For machines capable of laser bed leveling there is support using regular expressions and matlab to graph the output of the laser and determine the high and low points of your bed/ gantry.
 
-Dependencies:
-Use Pip to install the dependencies from Depend.txt
+**This is a work in progress**
