@@ -4,7 +4,12 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import QtCore
 
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 import qdarkstyle
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel
+from PyQt5.QtGui import QIcon, QPixmap
 import searching
 import graph_qt_GUI
 import QT_SHOW_GRAPH
@@ -27,13 +32,34 @@ todo:
 
 """
 
+def xcords(mesh):
+    tempx = [i[0] for i in mesh]
+    return tempx
+
+def ycords(mesh):
+    tempy = [i[1] for i in mesh]
+    return tempy
+
+def zcords(mesh):
+    tempz = [i[2] for i in mesh]
+    return tempz
+
 class MFParser(QWidget):
     filename = ""
     contents = ""
     bedLevelFilter = ["Raw bed readings"]
 
+    def sizeHint(self):
+        return QSize(600, 600)
+
+    def heightForWidth(self, width):
+        return width *2
+
     def __init__(self):
         super().__init__()
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
+        self.setSizePolicy(sizePolicy)
+        sizePolicy.setHeightForWidth(True)
         self.initUI()
 
     # returns the filename the user selected
@@ -81,8 +107,40 @@ class MFParser(QWidget):
         except:
             print("please choose a file first")
 
+    def graphtoolpath(self,mesh=[]):  # mesh is a 2d array with XYZ cords
+        global figure
+        x = xcords(mesh)
+        y = ycords(mesh)
+        z = zcords(mesh)
+        ax = self.figure.add_subplot(211, projection='3d')
+        # ax = self.figure.gca(projection='3d')
+        try:
+            ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
+            ax.set_zlim(-.3, .3)
+            ax.set_xlabel('X Axis (mm)')
+            ax.set_ylabel('Y Axis (mm)')
+            ax.set_zlabel('Z Axis (um)')
+
+            #-----------Graph 2:
+            toolpath = self.figure.add_subplot(212,projection='3d')
+            toolpath.plot3D(x,y,z, 'grey')
+            toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
+            toolpath.set_zlim(-.3, .3)
+            toolpath.set_xlabel('X Axis (mm)')
+            toolpath.set_ylabel('Y Axis (mm)')
+            toolpath.set_zlabel('Z Axis (um)')
+
+            self.canvas.draw() #draws on the main GUI
+
+        except: pass
+
     def initUI(self):
         filter = []
+        filename =""
+
+        def graphButtonPress():
+            mesh = searching.stip_bed_values(MFParser.logfile(self,MFParser.bedLevelFilter))
+            MFParser.graphtoolpath(self,mesh=mesh)
 
         def alterfilter(a,b,bool=False):
             if bool == True:
@@ -97,23 +155,30 @@ class MFParser(QWidget):
                 else: filter.remove(a)
             print("Filter: ",filter,"Checked: ",b)
 
-        def quickinfobutt(filename):
+        def quickinfobutt(filename=""):
             print("quick info")
             tempa = ["\"printTime\":"]
 
             a = MFParser.logfile(self,tempa)
             abc = searching.printtime(a)
-            quickinfotime.setText("Quick Info: "+abc)
+            quickinfotime.setText("Quick Info: Print Time for Log: "+abc+"\nBed Leveling Data: ")
 
         def ParsingWindow():
-            try:
-                content = self.logfile(filter)
-                string = ""
-                for i in range(len(content)):
-                    string = string + content[i]
-                parseddata.setText(string)
-            except:
-                parseddata.setText("Choose a better file, NERD\nEiger.io -> Printers -> Download Log")
+            # try:
+
+            content = self.logfile(filter)
+            string = ""
+            for i in range(len(content)):
+                string = string + content[i]
+
+            self.parseddata.setText(string)
+            self.sidebyside.update()
+            quickinfobutt(filename)
+            graphButtonPress()
+
+            # except:
+            # self.parseddata.setText("Choose a better file, NERD\nEiger.io -> Printers -> Download Log")
+            # self.parseddata.setLineWrapMode(True)
 
         app.setStyle("Fusion")
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
@@ -121,11 +186,12 @@ class MFParser(QWidget):
         app.setApplicationName("Markforged Log parser")
         QSize()
 
-
+        #Top Label
         toplabel = QLabel("Markforged Log Parser")
         author = QLabel("Author: Jason Giroux - Python 3.7 Using QT5")
         sourceCode = QLabel("Source Code")
 
+        # tool bar buttons
         parsebutton = QPushButton("Parse Log")
         browsebutton = QPushButton("Browse")#browse button
         bedlevelbutton = QPushButton("Bed Leveling Data")
@@ -133,8 +199,10 @@ class MFParser(QWidget):
 
         # quickinfolabel = QLabel("Quick Info:")
         printtimelabel = QLabel("print Time:")
-        quickinfotime = QLabel()
+        quickinfotime = QLabel() #will be textset from seperate method
+        graphLabel = QLabel("Bed Leveling Data")
 
+        #toolbar check box
         bedlevelingfilter = QCheckBox("Bed Leveling Data")
         warnings = QCheckBox("WARNINGS")
         BED = QCheckBox("BED")
@@ -144,15 +212,53 @@ class MFParser(QWidget):
         PRINTTIME = QCheckBox("PRINT TIME")
         PRINTJOB = QCheckBox("PRINT JOB INITIALIZATION")
 
+        #defining graph figures
+        def zcords(mesh):
+            tempz = [i[2] for i in mesh]
+            return tempz
 
-        parseddata = QTextEdit()
-        # parseddata.setGeometry(600,600)
-        parseddataContainer = QHBoxLayout()
-        parseddataContainer.addWidget(parseddata)
+        def average1(mesh):
+            tempz = mesh
+            length = len(tempz)
+            adding = np.sum(tempz)
+            ave = adding / length
+            return round(ave, 10)
+
+        def offset(mesh):
+            offset =[]
+            zero = average1(mesh)
+            for i in range(len(mesh)):
+                offset.append(zero - mesh[i])
+            average = np.average(offset)
+            print("Offset Average:",average)
+            return average
+
+        def xcords(mesh):
+            tempx = [i[0] for i in mesh]
+            return tempx
+
+        def ycords(mesh):
+            tempy = [i[1] for i in mesh]
+            return tempy
+
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure) #this is where the graph is in the QT GUI
+
+        #text edit bottom
+        self.parseddata = QTextEdit()
+        self.sidebyside = QSplitter()
+        self.sidebyside.setOrientation(Qt.Horizontal)
+
+        self.sidebyside.addWidget(self.canvas)
+        self.sidebyside.addWidget(self.parseddata)
+        self.sidebyside.setBaseSize(10,1)
+        self.sidebyside.update()
+        # self.sidebyside.addLayout(self.containerGraph)
+        # self.sidebyside.addLayout(self.parseddataContainer)
 
         #button pressed events
         browsebutton.clicked.connect(self.Broweserbutton)
-        bedlevelbutton.clicked.connect(lambda:MFParser.bedlevel(self))
+        bedlevelbutton.clicked.connect(lambda:graphButtonPress())#:MFParser.bedlevel(self)
         parsebutton.clicked.connect(lambda:ParsingWindow())  #content=MFParser.logfile(self,filter))
         quickinfoButton.clicked.connect(lambda:quickinfobutt(filename))
 
@@ -170,6 +276,7 @@ class MFParser(QWidget):
         welcomehbox = QVBoxLayout()
         welcomehbox.addWidget(toplabel)
         welcomehbox.addWidget(author)
+        welcomehbox.addWidget(sourceCode) #todo: add hyper link
 
         # define vbox for filters
         filtervboxleft = QHBoxLayout()
@@ -178,6 +285,7 @@ class MFParser(QWidget):
         filtervboxleft.addWidget(BED)
         filtervboxleft.addWidget(ERRORS)
 
+        #right boxes for filters
         filtervboxright = QHBoxLayout()
         filtervboxright.addWidget(FAILS)
         filtervboxright.addWidget(LEVELOUTPUT)
@@ -188,9 +296,6 @@ class MFParser(QWidget):
         filterhbox.addLayout(filtervboxleft)
         filterhbox.addLayout(filtervboxright)
 
-        """
-        will need to add filters here
-        """
         buttonHbox = QHBoxLayout()
         buttonHbox.addWidget(browsebutton)
         buttonHbox.addWidget(parsebutton)
@@ -215,7 +320,8 @@ class MFParser(QWidget):
         finalVBOX.addLayout(welcomehbox) #,middlehbox,quickinfohbox
         finalVBOX.addLayout(middlehbox)
         finalVBOX.addLayout(quickinfohbox)
-        finalVBOX.addLayout(parseddataContainer)
+        finalVBOX.addWidget(self.sidebyside)
+        # finalVBOX.addLayout(self.parseddataContainer)
 
         self.setLayout(finalVBOX)
         self.show()

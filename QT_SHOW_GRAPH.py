@@ -73,9 +73,6 @@ class Window(QDialog):
         if isValid == False:
             print("Not Valid")
 
-
-
-        #styling
         app.setStyle("Fusion")
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
