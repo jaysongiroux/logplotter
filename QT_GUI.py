@@ -183,11 +183,11 @@ class MFParser(QWidget):
         app.setStyle("Fusion")
         app.setStyleSheet(qdarkstyle.load_stylesheet_pyqt5())
 
-        app.setApplicationName("Markforged Log parser")
+        app.setApplicationName("Log parser")
         QSize()
 
         #Top Label
-        toplabel = QLabel("Markforged Log Parser")
+        toplabel = QLabel("Log Parser")
         author = QLabel("Author: Jason Giroux - Python 3.7 Using QT5")
         sourceCode = QLabel("Source Code")
 

@@ -95,7 +95,7 @@ class Window(QDialog):
 
         #calculating information on given mesh
         #fix offset
-        self.title = QLabel("Mark Forged Bed Leveling Utility")
+        self.title = QLabel("Bed Leveling Utility")
         self.titlebox.addWidget(self.title)
         self.sourceCode = QLabel("Source Code")
         self.footer.addWidget(self.sourceCode)
