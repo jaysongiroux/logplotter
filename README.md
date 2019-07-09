@@ -6,4 +6,4 @@ For machines capable of laser bed leveling there is support using regular expres
 
 **This is a work in progress**
 
-<a href="https://github.com/jaysongiroux/logplotter/blob/master/Screen%20Shot%202019-07-09%20at%202.35.14%20PM.png"></a>
+<a href="https://github.com/jaysongiroux/logplotter/blob/master/Screen%20Shot%202019-07-09%20at%202.35.14%20PM.png?raw=true"></a>
