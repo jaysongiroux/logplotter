@@ -173,8 +173,8 @@ class MFParser(QWidget):
 
             self.parseddata.setText(string)
             self.sidebyside.update()
-            quickinfobutt(filename)
-            graphButtonPress()
+            #quickinfobutt(filename)
+            #graphButtonPress()
 
             # except:
             # self.parseddata.setText("Choose a better file, NERD\nEiger.io -> Printers -> Download Log")
