@@ -60,9 +60,6 @@ def printtime(a): #a = contents to be search, f=array of filtered words
     #
     # return hours
 
-
-
-
 """
 How does this handle log files with multiple sets of datapoints?
     - designed: take the last datapoints published to the logfile and use them in the 

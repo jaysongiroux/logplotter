@@ -17,6 +17,7 @@ from PyQt5.QtWidgets import QApplication
 from matplotlib import cm
 import numpy as np
 
+
 if hasattr(QtCore.Qt, 'AA_EnableHighDpiScaling'):
     PyQt5.QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
 
@@ -117,6 +118,8 @@ class MFParser(QWidget):
         try:
             ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
             ax.set_zlim(-.3, .3)
+            ax.set_xlim(0,200)
+            ax.set_ylim(0,200)
             ax.set_xlabel('X Axis (mm)')
             ax.set_ylabel('Y Axis (mm)')
             ax.set_zlabel('Z Axis (um)')
@@ -126,6 +129,8 @@ class MFParser(QWidget):
             toolpath.plot3D(x,y,z, 'grey')
             toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
             toolpath.set_zlim(-.3, .3)
+            toolpath.set_xlim(0,200)
+            toolpath.set_ylim(0,200)
             toolpath.set_xlabel('X Axis (mm)')
             toolpath.set_ylabel('Y Axis (mm)')
             toolpath.set_zlabel('Z Axis (um)')

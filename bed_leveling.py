@@ -61,6 +61,9 @@ def graphtoolpath(mesh): #mesh is a 2d array with XYZ cords
     ax = fig.gca(projection='3d')
 
     ax.plot_trisurf(x,y,z,cmap=cm.coolwarm)
+    ax.zlim([-.5,.5])
+    ax.xlim([0,200])
+    ax.ylim([0,200])
     plt.show()
     #
     # print("graphing tool path")

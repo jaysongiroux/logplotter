@@ -1,3 +1,6 @@
+# this file is useless. all functionality was ported over to QT_GIU.py
+# that includes graphing and data processing
+
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
@@ -140,11 +143,14 @@ class Window(QDialog):
         ax = self.figure.add_subplot(121, projection='3d')
         # ax = self.figure.gca(projection='3d')
         try:
-            ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
+            ax.set_autoscaley_on(False)
             ax.set_zlim(-.3, .3)
             ax.set_xlabel('X Axis (mm)')
             ax.set_ylabel('Y Axis (mm)')
             ax.set_zlabel('Z Axis (um)')
+            ax.set_xlim(0, 200)
+            ax.set_ylim(0, 200)
+            ax.plot_trisurf(x, y, z, cmap=cm.coolwarm)
         except:
             pass
 
@@ -152,15 +158,20 @@ class Window(QDialog):
         try:
             toolpath = self.figure.add_subplot(122,projection='3d')
             toolpath.plot3D(x,y,z, 'grey')
-            toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
+            toolpath.set_autoscaley_on(False)
             toolpath.set_zlim(-.3, .3)
+            toolpath.xlim([0,200])
+            toolpath.ylim([0,200])
             toolpath.set_xlabel('X Axis (mm)')
             toolpath.set_ylabel('Y Axis (mm)')
             toolpath.set_zlabel('Z Axis (um)')
+            toolpath.scatter3D(x, y, z, c=z, cmap='Greys')
         except:
             pass
-        try: self.canvas.draw()
-        except: pass
+        try:
+            self.canvas.draw()
+        except:
+            pass
 
 
     def sizeHint(self):
